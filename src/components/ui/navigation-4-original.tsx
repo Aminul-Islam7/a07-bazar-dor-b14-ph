@@ -213,7 +213,7 @@ export function Navigation4() {
 											</Badge>
 										</a>
 
-										<Accordion type="single" collapsible className="w-full">
+										<Accordion>
 											<AccordionItem value="solutions" className="border-none">
 												<AccordionTrigger className="hover:text-primary dark:hover:text-primary justify-between py-2 text-base font-medium text-neutral-900 no-underline transition-colors hover:no-underline dark:text-neutral-50">Solutions</AccordionTrigger>
 												<AccordionContent className="mt-1 ml-2 flex !h-auto flex-col gap-3 border-l border-neutral-200 pb-0 pl-4 dark:border-neutral-800 [&_a]:no-underline">
