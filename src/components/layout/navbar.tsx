@@ -23,8 +23,8 @@ export default function Navbar() {
 	const dummyCategory = { length: 8 };
 
 	return (
-		<section>
-			<nav className="relative w-full border-b border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950 [&_a]:no-underline">
+		<section className="sticky top-0">
+			<nav className="relative w-full border-b bg-card/80 backdrop-blur-2xl">
 				<div className="container mx-auto px-6">
 					<div className=" flex h-16 items-center justify-between">
 						<div className="flex items-center gap-6">
@@ -90,7 +90,7 @@ export default function Navbar() {
 					</NavigationMenu>
 				</div>
 			</nav>
-			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b bg-card">
+			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b bg-card/80 backdrop-blur-2xl">
 				{context.products.map(product => (
 					<Fragment key={product.id}>
 						<article className="flex gap-2 text-sm p-2">

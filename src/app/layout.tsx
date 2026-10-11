@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { AppProvider } from '@/context/app-context';
+import Footer from '@/components/layout/footer';
 import { Hind_Siliguri } from 'next/font/google';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/navbar';
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 						<Navbar></Navbar>
 						{children}
+						<Footer></Footer>
 					</ThemeProvider>
 				</AppProvider>
 			</body>
