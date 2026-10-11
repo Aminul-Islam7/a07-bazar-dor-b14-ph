@@ -1,11 +1,11 @@
 'use client';
 
-import { Category, CommodityItem } from '@/types/commodity';
+import { Category, Product } from '@/types/commodity';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface AppContextType {
 	categories: Category[];
-	products: CommodityItem[];
+	products: Product[];
 	isLoading: boolean;
 	error: string | null;
 	banglaDate: string;
@@ -15,7 +15,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
 	const [categories, setCategories] = useState<Category[]>([]);
-	const [products, setProducts] = useState<CommodityItem[]>([]);
+	const [products, setProducts] = useState<Product[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [banglaDate, setBanglaDate] = useState<string>('');

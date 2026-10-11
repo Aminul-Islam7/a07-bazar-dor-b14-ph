@@ -1,10 +1,10 @@
 import { directionColor, directionSymbol, numberInBangla } from '@/lib/utils';
 
-import { CommodityItem } from '@/types/commodity';
+import { Product } from '@/types/commodity';
 
-export default function ProductCard({ product }: { product: CommodityItem }) {
+export default function ProductCard({ product }: { product: Product }) {
 	return (
-		<article className="bg-card p-4 rounded-xl  space-y-4">
+		<article className="bg-card p-4 rounded-xl border space-y-4">
 			<div className="flex gap-2">
 				<div className="rounded-lg bg-background h-12 w-12 flex justify-center items-center text-2xl">{product.image}</div>
 				<div className="flex flex-col gap-1">

@@ -17,7 +17,7 @@ export interface Category {
 	icon: string;
 }
 
-export interface CommodityItem {
+export interface Product {
 	id: number;
 	slug: string;
 	nameBn: string;

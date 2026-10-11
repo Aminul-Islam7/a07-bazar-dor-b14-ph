@@ -1,6 +1,7 @@
 'use client';
 
 import ProductCard from '../product-card';
+import { numberInBangla } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
 
 export default function ProductsSection() {
@@ -35,7 +36,7 @@ export default function ProductsSection() {
 			</div>
 			<div>
 				<h2 className="font-bold text-xl mb-1">সব পণ্য</h2>
-				<p className="text-sm text-muted-foreground mb-3.5">মোট ৩৩টি পণ্য দেখানো হচ্ছে</p>
+				<p className="text-sm text-muted-foreground mb-3.5">মোট {numberInBangla(context.products.length)} টি পণ্য দেখানো হচ্ছে</p>
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 					{context.products.map(product => (
 						<ProductCard key={product.id} product={product}></ProductCard>

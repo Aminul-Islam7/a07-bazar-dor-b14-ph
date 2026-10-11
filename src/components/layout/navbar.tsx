@@ -23,7 +23,7 @@ export default function Navbar() {
 	const dummyCategory = { length: 8 };
 
 	return (
-		<section className="sticky top-0">
+		<section className="sticky top-0 mb-10">
 			<nav className="relative w-full border-b bg-card/80 backdrop-blur-2xl">
 				<div className="container mx-auto px-6">
 					<div className=" flex h-16 items-center justify-between">
@@ -32,10 +32,10 @@ export default function Navbar() {
 								<div className="bg-primary rounded-md text-white flex h-10 w-10 items-center justify-center">
 									<FaCartShopping size={20} />
 								</div>
-								<div className="flex flex-col">
+								<Link href="/" className="flex flex-col">
 									<span className="text-xl font-bold">বাজার দর</span>
 									{context.banglaDate ? <span className="text-xs">{context.banglaDate}</span> : <Skeleton className="mt-0.5 h-3.5 w-32 rounded" />}
-								</div>
+								</Link>
 							</div>
 						</div>
 						{/* Right Section */}
@@ -53,12 +53,12 @@ export default function Navbar() {
 										<div className="flex h-full flex-col overflow-y-auto px-6 py-8 justify-between">
 											<div>
 												<div className="mb-6 flex items-center justify-between">
-													<div className="flex items-center gap-2">
+													<Link href="/" className="flex items-center gap-2">
 														<div className="bg-primary rounded-md text-white flex h-8 w-8 items-center justify-center">
 															<FaCartShopping size={14} />
 														</div>
 														<span className="text-xl font-bold">বাজার দর</span>
-													</div>
+													</Link>
 												</div>
 												<div className="flex flex-col gap-1 text-base font-medium">
 													{context.categories.map((category: Category) => (
@@ -81,7 +81,7 @@ export default function Navbar() {
 							{context.isLoading
 								? Array.from(dummyCategory).map((dummyCategory, index) => <Skeleton key={index} className="h-6 w-16 ml-2"></Skeleton>)
 								: context.categories.map((category: Category) => (
-										<Link key={category.slug} className="rounded-md bg-transparent px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/50 dark:hover:text-neutral-50" href={`category/${category.slug}`}>
+										<Link key={category.slug} className="rounded-md bg-transparent px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/50 dark:hover:text-neutral-50" href={`/category/${category.slug}`}>
 											<span className="mr-2">{category.icon}</span>
 											<span>{category.nameBn}</span>
 										</Link>

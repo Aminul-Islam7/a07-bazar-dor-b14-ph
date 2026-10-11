@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
 	return (
-		<html lang="en" className={cn('h-full', 'antialiased', hindSiliguri.variable, 'font-sans')} suppressHydrationWarning>
+		<html lang="bn" className={cn('h-full', 'antialiased', hindSiliguri.variable, 'font-sans')} suppressHydrationWarning>
 			<body className="min-h-full flex flex-col">
 				<AppProvider>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>

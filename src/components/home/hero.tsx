@@ -5,7 +5,7 @@ import bazarHero from '@/assets/bazar-hero.svg';
 
 export default function Hero() {
 	return (
-		<article className="bg-card p-5 my-10 rounded-2xl flex flex-col md:flex-row">
+		<article className="bg-card p-5 rounded-2xl flex flex-col md:flex-row">
 			<div className="flex-2 flex flex-col justify-between">
 				<div className="flex flex-col gap-2 items-center md:items-start">
 					<DateEyebrow></DateEyebrow>
