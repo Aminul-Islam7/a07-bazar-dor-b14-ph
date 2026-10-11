@@ -51,7 +51,7 @@ function CategorySkeleton() {
 		<div className="space-y-8 animate-pulse">
 			{/* Category Header Banner */}
 			<section className="flex bg-card rounded-xl border w-full items-center gap-3 p-4">
-				<Skeleton className="h-12 w-12 rounded-lg" />
+				<Skeleton className="h-13 w-12 rounded-lg" />
 				<div className="space-y-2">
 					<Skeleton className="h-6 w-36 rounded-md" />
 					<Skeleton className="h-4 w-52 rounded-md" />
@@ -65,33 +65,33 @@ function CategorySkeleton() {
 					<Skeleton className="h-4 w-40 rounded" />
 					<div className="flex items-center gap-2">
 						<Skeleton className="h-4 w-10 rounded" />
-						<Skeleton className="h-9 w-28 rounded-md" />
+						<Skeleton className="h-7.5 w-28 rounded-md" />
 					</div>
 				</div>
 
 				{/* Grid matching ProductsListing */}
 				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 					{Array.from({ length: 6 }).map((_, i) => (
-						<article key={i} className="bg-card p-4 rounded-xl space-y-4 border border-transparent">
+						<article key={i} className="bg-card p-4 rounded-xl space-y-5 border border-transparent">
 							{/* Card Top: Icon + Name + Unit */}
 							<div className="flex gap-2">
-								<Skeleton className="h-10 w-10 rounded-lg shrink-0" />
-								<div className="flex flex-col gap-1.5 w-full">
+								<Skeleton className="h-12 w-12 rounded-lg shrink-0" />
+								<div className="flex flex-col gap-2 w-full">
 									<Skeleton className="h-4 w-28 rounded" />
 									<Skeleton className="h-3 w-16 rounded" />
 								</div>
 							</div>
 
 							{/* "আজকের দাম" label */}
-							<Skeleton className="h-3 w-20 rounded" />
+							<Skeleton className="h-3 w-20 rounded mb-0" />
 
 							{/* Card Bottom: Price + Change Badge */}
 							<div className="flex justify-between items-end pt-1">
 								<div className="flex items-baseline gap-1">
-									<Skeleton className="h-6 w-16 rounded" />
+									<Skeleton className="h-6 w-10 rounded" />
 									<Skeleton className="h-4 w-8 rounded" />
 								</div>
-								<Skeleton className="h-6 w-16 rounded-full" />
+								<Skeleton className="h-6 w-14 rounded-full" />
 							</div>
 						</article>
 					))}
