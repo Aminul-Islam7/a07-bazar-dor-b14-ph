@@ -2,6 +2,7 @@
 
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { directionColor, directionSymbol } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Category } from '@/types/commodity';
@@ -20,18 +21,6 @@ export default function Navbar() {
 	const context = useApp();
 
 	const dummyCategory = { length: 8 };
-
-	const direction = (dir: string) => {
-		if (dir === 'up') return '▲';
-		if (dir === 'down') return '▼';
-		return '—';
-	};
-
-	const directionColor = (dir: string) => {
-		if (dir === 'up') return 'text-red-600 dark:text-red-400';
-		if (dir === 'down') return 'text-green-700 dark:text-green-400';
-		return 'text-muted-foreground';
-	};
 
 	return (
 		<section>
@@ -109,7 +98,7 @@ export default function Navbar() {
 							<span className="font-medium">{product.nameBn}</span>
 							<span>{numberInBangla(product.today)} টাকা/কেজি</span>
 
-							<span className={`font-semibold ${directionColor(product.change.dir)}`}>{direction(product.change.dir) + ' ' + product.change.pct}%</span>
+							<span className={`font-semibold ${directionColor(product.change.dir)}`}>{directionSymbol(product.change.dir) + ' ' + numberInBangla(Math.abs(product.change.pct))}%</span>
 						</article>
 						<div className="w-px h-full bg-muted"></div>
 					</Fragment>
