@@ -2,11 +2,11 @@
 
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Category } from '@/types/commodity';
 import { FaCartShopping } from 'react-icons/fa6';
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { Marquee } from '../ui/marquee';
 import { Menu } from 'lucide-react';
@@ -17,14 +17,9 @@ import { numberInBangla } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
 
 export default function Navbar() {
-	const [banglaDate, setBanglaDate] = useState<string>('');
 	const context = useApp();
 
 	const dummyCategory = { length: 8 };
-	useEffect(() => {
-		const formatted = new Date().toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-		setBanglaDate(formatted);
-	}, []);
 
 	const direction = (dir: string) => {
 		if (dir === 'up') return '▲';
@@ -50,7 +45,7 @@ export default function Navbar() {
 								</div>
 								<div className="flex flex-col">
 									<span className="text-xl font-bold">বাজার দর</span>
-									{banglaDate ? <span className="text-xs">{banglaDate}</span> : <Skeleton className="mt-0.5 h-3.5 w-32 rounded" />}
+									{context.banglaDate ? <span className="text-xs">{context.banglaDate}</span> : <Skeleton className="mt-0.5 h-3.5 w-32 rounded" />}
 								</div>
 							</div>
 						</div>
@@ -108,8 +103,8 @@ export default function Navbar() {
 			</nav>
 			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b bg-card">
 				{context.products.map(product => (
-					<>
-						<article className="flex gap-2 text-sm p-2" key={product.id}>
+					<Fragment key={product.id}>
+						<article className="flex gap-2 text-sm p-2">
 							<span>{product.image}</span>
 							<span className="font-medium">{product.nameBn}</span>
 							<span>{numberInBangla(product.today)} টাকা/কেজি</span>
@@ -117,7 +112,7 @@ export default function Navbar() {
 							<span className={`font-semibold ${directionColor(product.change.dir)}`}>{direction(product.change.dir) + ' ' + product.change.pct}%</span>
 						</article>
 						<div className="w-px h-full bg-muted"></div>
-					</>
+					</Fragment>
 				))}
 			</Marquee>
 		</section>

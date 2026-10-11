@@ -8,6 +8,7 @@ interface AppContextType {
 	products: CommodityItem[];
 	isLoading: boolean;
 	error: string | null;
+	banglaDate: string;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -17,6 +18,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 	const [products, setProducts] = useState<CommodityItem[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const [banglaDate, setBanglaDate] = useState<string>('');
 
 	useEffect(() => {
 		async function loadData() {
@@ -40,6 +42,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 		}
 
 		loadData();
+
+		const date = new Date().toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+		setBanglaDate(date);
 	}, []);
 
 	return (
@@ -51,6 +56,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 				// setSelectedCategory,
 				isLoading,
 				error,
+				banglaDate,
 			}}
 		>
 			{children}
