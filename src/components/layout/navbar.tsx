@@ -106,7 +106,7 @@ export default function Navbar() {
 					</NavigationMenu>
 				</div>
 			</nav>
-			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b">
+			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b bg-card">
 				{context.products.map(product => (
 					<>
 						<article className="flex gap-2 text-sm p-2" key={product.id}>
