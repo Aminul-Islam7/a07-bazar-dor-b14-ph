@@ -12,9 +12,11 @@ export default function Hero() {
 					<h1 className="text-4xl font-bold text-center md:text-start">আজকের বাজারের দাম এক নজরে</h1>
 					<p className="text-muted-foreground my-5 text-center md:text-start">চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার দাম — বাজারভিত্তিক বিস্তারিত, গড়, সর্বনিম্ন-সর্বাধিক এবং দামের পরিবর্তন এক জায়গায়।</p>
 				</div>
-				<Button size="lg" className="py-5 px-7 w-full md:w-fit text-base cursor-pointer">
-					সব পণ্য দেখুন
-				</Button>
+				<a href="#all-products-section">
+					<Button size="lg" className="py-5 px-7 w-full md:w-fit text-base cursor-pointer">
+						সব পণ্য দেখুন
+					</Button>
+				</a>
 			</div>
 			<Image priority className="flex-1 max-w-70 order-first md:order-last mb-2 md:mb-0 self-center" src={bazarHero} width={250} height={250} alt="Hero image"></Image>
 		</section>
