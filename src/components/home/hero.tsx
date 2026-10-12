@@ -5,7 +5,7 @@ import bazarHero from '@/assets/bazar-hero.svg';
 
 export default function Hero() {
 	return (
-		<article className="bg-card p-5 rounded-2xl flex flex-col md:flex-row">
+		<section className="bg-card border p-5 rounded-2xl flex flex-col md:flex-row">
 			<div className="flex-2 flex flex-col justify-between">
 				<div className="flex flex-col gap-2 items-center md:items-start">
 					<DateEyebrow></DateEyebrow>
@@ -16,7 +16,7 @@ export default function Hero() {
 					সব পণ্য দেখুন
 				</Button>
 			</div>
-			<Image className="flex-1 max-w-70 order-first md:order-last mb-2 md:mb-0 self-center" src={bazarHero} width={250} height={250} alt="Hero image"></Image>
-		</article>
+			<Image priority className="flex-1 max-w-70 order-first md:order-last mb-2 md:mb-0 self-center" src={bazarHero} width={250} height={250} alt="Hero image"></Image>
+		</section>
 	);
 }
