@@ -62,7 +62,7 @@ export default function Navbar() {
 												</div>
 												<div className="flex flex-col gap-1 text-base font-medium">
 													{context.categories.map((category: Category) => (
-														<Link key={category.slug} className="hover:text-primary block py-2 text-neutral-900 no-underline transition-colors dark:text-neutral-50" href={`category/${category.slug}`}>
+														<Link key={category.slug} className="hover:text-primary block py-2 text-neutral-900 no-underline transition-colors dark:text-neutral-50" href={`/categories/${category.slug}`}>
 															<span className="mr-2">{category.icon}</span>
 															<span>{category.nameBn}</span>
 														</Link>
@@ -81,7 +81,7 @@ export default function Navbar() {
 							{context.isLoading
 								? Array.from(dummyCategory).map((dummyCategory, index) => <Skeleton key={index} className="h-6 w-16 ml-2"></Skeleton>)
 								: context.categories.map((category: Category) => (
-										<Link key={category.slug} className="rounded-md bg-transparent px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/50 dark:hover:text-neutral-50" href={`/category/${category.slug}`}>
+										<Link key={category.slug} className="rounded-md bg-transparent px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/50 dark:hover:text-neutral-50" href={`/categories/${category.slug}`}>
 											<span className="mr-2">{category.icon}</span>
 											<span>{category.nameBn}</span>
 										</Link>
@@ -93,13 +93,14 @@ export default function Navbar() {
 			<Marquee pauseOnHover className="[--duration:120s] w-full p-0 border-b bg-card/80 backdrop-blur-2xl">
 				{context.products.map(product => (
 					<Fragment key={product.id}>
-						<article className="flex gap-2 text-sm p-2">
-							<span>{product.image}</span>
-							<span className="font-medium">{product.nameBn}</span>
-							<span>{numberInBangla(product.today)} টাকা/কেজি</span>
-
-							<span className={`font-semibold ${directionColor(product.change.dir)}`}>{directionSymbol(product.change.dir) + ' ' + numberInBangla(Math.abs(product.change.pct))}%</span>
-						</article>
+						<Link href={`/categories/${product.category}/products/${product.id}`}>
+							<article className="flex gap-2 text-sm p-2">
+								<span>{product.image}</span>
+								<span className="font-medium">{product.nameBn}</span>
+								<span>{numberInBangla(product.today)} টাকা/কেজি</span>
+								<span className={`font-semibold ${directionColor(product.change.dir)}`}>{directionSymbol(product.change.dir) + ' ' + numberInBangla(Math.abs(product.change.pct))}%</span>
+							</article>
+						</Link>
 						<div className="w-px h-full bg-muted"></div>
 					</Fragment>
 				))}
