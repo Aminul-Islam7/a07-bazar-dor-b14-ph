@@ -23,7 +23,7 @@ export default function Navbar() {
 	const dummyCategory = { length: 8 };
 
 	return (
-		<section className="sticky top-0 mb-10">
+		<section className="sticky top-0 z-50">
 			<nav className="relative w-full border-b bg-card/80 backdrop-blur-2xl">
 				<div className="container mx-auto px-6">
 					<div className=" flex h-16 items-center justify-between">

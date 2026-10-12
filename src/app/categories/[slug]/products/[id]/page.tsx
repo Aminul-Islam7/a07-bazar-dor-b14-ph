@@ -183,10 +183,10 @@ function ProductPageSkeleton() {
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
 	return (
-		<div className="mx-auto container px-6">
+		<main className="mx-auto container px-6 py-10">
 			<Suspense fallback={<ProductPageSkeleton />}>
 				<ProductDetails params={params} />
 			</Suspense>
-		</div>
+		</main>
 	);
 }

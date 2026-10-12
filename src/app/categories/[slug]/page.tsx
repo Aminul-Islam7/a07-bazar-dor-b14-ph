@@ -103,7 +103,7 @@ function CategorySkeleton() {
 
 export default function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
 	return (
-		<div className="mx-auto container px-6">
+		<div className="mx-auto container px-6 py-10">
 			<Suspense fallback={<CategorySkeleton />}>
 				<CategoryContent params={params} />
 			</Suspense>
