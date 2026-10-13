@@ -1,6 +1,10 @@
 'use client';
 
+import * as z from 'zod';
+
+import { Controller, useForm } from 'react-hook-form';
 import { FaArrowLeft, FaGithub, FaGoogle } from 'react-icons/fa';
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { MdArrowForward, MdEmail, MdLock, MdPerson } from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
@@ -8,13 +12,38 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-export interface TrustStat {
-	value: string;
-	label: string;
-}
+const formSchema = z
+	.object({
+		name: z.string().min(3, 'নাম কমপক্ষে ৩ অক্ষরের হতে হবে।'),
+		email: z.email({ message: 'সঠিক ইমেইল অ্যাড্রেস দিন।' }),
+		password: z.string().min(8, 'পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।'),
+		confirmPassword: z.string().min(1, 'পাসওয়ার্ডটি আবার লিখে নিশ্চিত করুন।'),
+	})
+	.superRefine(({ password, confirmPassword }, ctx) => {
+		if (confirmPassword !== password) {
+			ctx.addIssue({
+				code: 'custom',
+				message: 'পাসওয়ার্ড দুটি মেলেনি।',
+				path: ['confirmPassword'],
+			});
+		}
+	});
 
 export default function SignUp() {
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
+		},
+	});
+
+	function onSubmit(data: z.infer<typeof formSchema>) {}
+
 	return (
 		<main className="py-10 flex flex-col justify-center">
 			<div className="mb-6 space-y-1">
@@ -22,52 +51,76 @@ export default function SignUp() {
 				<p className="text-muted-foreground text-sm text-center">বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</p>
 			</div>
 			<div className="flex items-center justify-center px-2">
-				<div className="bg-card rounded-xl p-4 shadow-xs sm:p-8 w-md">
-					<form
-						onSubmit={e => {
-							e.preventDefault();
-							onSubmit?.(e);
-						}}
-						className="space-y-5"
-					>
-						<div className="space-y-1.5">
-							<Label htmlFor="name" className="text-sm font-medium">
-								নাম
-							</Label>
-							<div className="relative">
-								<MdPerson className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
-								<Input id="name" type="text " placeholder="যেমন: রহিম উদ্দিন" autoComplete="given-name" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required />
-							</div>
-						</div>
+				<div className="bg-card rounded-xl p-6 sm:p-8 w-md">
+					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
+						<Controller
+							name="name"
+							control={form.control}
+							render={({ field, fieldState }) => (
+								<Field data-invalid={fieldState.invalid}>
+									<FieldLabel htmlFor="name" className="text-sm font-medium">
+										নাম
+									</FieldLabel>
+									<div className="relative">
+										<MdPerson className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
+										<Input {...field} id="name" type="text " placeholder="যেমন: রহিম উদ্দিন" autoComplete="name" aria-invalid={fieldState.invalid} className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required />
+									</div>
+									{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+								</Field>
+							)}
+						/>
 
-						<div className="space-y-1.5">
-							<Label htmlFor="email" className="text-sm font-medium">
-								ইমেইল
-							</Label>
-							<div className="relative">
-								<MdEmail className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
-								<Input id="email" type="email" placeholder="you@example.com" autoComplete="email" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required />
-							</div>
-						</div>
+						<Controller
+							name="email"
+							control={form.control}
+							render={({ field, fieldState }) => (
+								<Field data-invalid={fieldState.invalid}>
+									<FieldLabel htmlFor="email" className="text-sm font-medium">
+										ইমেইল
+									</FieldLabel>
+									<div className="relative">
+										<MdEmail className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
+										<Input {...field} id="email" type="email" placeholder="you@example.com" autoComplete="email" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required />
+									</div>
+									{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+								</Field>
+							)}
+						/>
 
-						<div className="space-y-1.5">
-							<Label htmlFor="password" className="text-sm font-medium">
-								পাসওয়ার্ড
-							</Label>
-							<div className="relative">
-								<MdLock className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
-								<Input id="password" type="password" placeholder="কমপক্ষে ৮ অক্ষর" autoComplete="new-password" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required minLength={8} />
-							</div>
-						</div>
-						<div className="space-y-1.5">
-							<Label htmlFor="password" className="text-sm font-medium">
-								পাসওয়ার্ড নিশ্চিত করুন
-							</Label>
-							<div className="relative">
-								<MdLock className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
-								<Input id="password" type="password" placeholder="আবার লিখুন" autoComplete="new-password" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required minLength={8} />
-							</div>
-						</div>
+						<FieldGroup className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+							<Controller
+								name="password"
+								control={form.control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid}>
+										<FieldLabel htmlFor="password" className="text-sm font-medium">
+											পাসওয়ার্ড
+										</FieldLabel>
+										<div className="relative">
+											<MdLock className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
+											<Input {...field} id="password" type="password" placeholder="কমপক্ষে ৮ অক্ষর" autoComplete="new-password" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required minLength={8} />
+										</div>
+										{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+									</Field>
+								)}
+							/>
+							<Controller
+								name="confirmPassword"
+								control={form.control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid}>
+										<FieldLabel htmlFor="confirmPassword" className="text-sm font-medium">
+											পাসওয়ার্ড নিশ্চিত করুন
+										</FieldLabel>
+										<div className="relative">
+											<MdLock className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
+											<Input {...field} id="confirmPassword" type="password" placeholder="আবার লিখুন" autoComplete="off" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required minLength={8} />
+										</div>
+										{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+									</Field>
+								)}
+							/>
+						</FieldGroup>
 						<Button type="submit" className="py-5 w-full gap-2 font-semibold shadow-sm">
 							অ্যাকাউন্ট তৈরি করুন
 							<MdArrowForward className="h-4 w-4" />
