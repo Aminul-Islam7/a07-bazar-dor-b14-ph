@@ -104,13 +104,13 @@ function SignUpForm() {
 					},
 					onError: ctx => {
 						setIsLoading(false);
-						toast.error(`${ctx.error.statusText} ${ctx.error.status})`);
+						toast.error(`${ctx.error.statusText} (${ctx.error.status})`);
 					},
 				},
 			);
 		} catch (err) {
 			setIsLoading(false);
-			toast.error('সার্ভারে সমস্যা হচ্ছে, অনুগ্রহ করে আবার চেষ্টা করুন।');
+			toast.error('সার্ভারে সমস্যা হচ্ছে, অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।');
 		}
 	};
 
