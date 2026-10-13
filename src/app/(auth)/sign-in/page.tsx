@@ -3,7 +3,7 @@
 import * as z from 'zod';
 
 import { Controller, useForm } from 'react-hook-form';
-import { FaArrowLeft, FaGithub, FaGoogle } from 'react-icons/fa';
+import { FaArrowLeft, FaEye, FaEyeSlash, FaGithub, FaGoogle } from 'react-icons/fa';
 import { Field, FieldError, FieldLabel } from '@/components/ui/field';
 import { MdEmail, MdLock } from 'react-icons/md';
 
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 const formSchema = z.object({
@@ -19,6 +20,8 @@ const formSchema = z.object({
 });
 
 export default function SignIn() {
+	const [showPassword, setShowPassword] = useState(false);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -65,7 +68,10 @@ export default function SignIn() {
 									</FieldLabel>
 									<div className="relative">
 										<MdLock className="text-muted-foreground absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
-										<Input {...field} id="password" type="password" placeholder="আপনার পাসওয়ার্ড" autoComplete="new-password" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10" required minLength={8} />
+										<Input {...field} id="password" type={showPassword ? 'text' : 'password'} placeholder="আপনার পাসওয়ার্ড" autoComplete="password" className="bg-muted focus-visible:ring-primary/20 h-11 border-none pl-10 pr-10" required />
+										<button type="button" onClick={() => setShowPassword(prev => !prev)} className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3.5 -translate-y-1/2 transition-colors focus:outline-none cursor-pointer" aria-label={showPassword ? 'পাসওয়ার্ড লুকান' : 'পাসওয়ার্ড দেখুন'}>
+											{showPassword ? <FaEye /> : <FaEyeSlash />}
+										</button>
 									</div>
 									{fieldState.invalid && <FieldError errors={[fieldState.error]} />}
 								</Field>
