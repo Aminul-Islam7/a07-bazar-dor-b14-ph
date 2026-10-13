@@ -3,6 +3,7 @@
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { directionColor, directionSymbol } from '@/lib/utils';
+import { signOut, useSession } from '@/lib/auth-client';
 
 import { Button } from '@/components/ui/button';
 import { Category } from '@/types/commodity';
@@ -19,8 +20,30 @@ import { useApp } from '@/context/app-context';
 
 export default function Navbar() {
 	const context = useApp();
+	const { data: session, isPending: isSessionPending } = useSession();
 
 	const dummyCategory = { length: 8 };
+
+	const authLinks = isSessionPending ? (
+		<>
+			<Skeleton className="h-8 w-32 rounded-lg" />
+		</>
+	) : session?.user ? (
+		<NavbarAvatar></NavbarAvatar>
+	) : (
+		<div className="flex flex-col lg:flex-row gap-2 lg:gap-1">
+			<Link href="/sign-in">
+				<Button className="py-4 lg:py-2 w-full" variant="outline" size="sm">
+					Sign In
+				</Button>
+			</Link>
+			<Link href="/sign-up">
+				<Button className="py-4 lg:py-2 w-full" size="sm">
+					Sign Up
+				</Button>
+			</Link>
+		</div>
+	);
 
 	return (
 		<section className="sticky top-0 z-50">
@@ -43,7 +66,7 @@ export default function Navbar() {
 							<ThemeSwitcherButton></ThemeSwitcherButton>
 							<div className="h-6 w-px bg-neutral-200 lg:block dark:bg-neutral-800" />
 							{/* Avatar Section */}
-							<NavbarAvatar className="hidden lg:block"></NavbarAvatar>
+							<div className="hidden lg:block">{authLinks}</div>
 							<div className="text-neutral-700 lg:hidden">
 								<Sheet>
 									<SheetTrigger render={<Button variant="ghost" className="h-10 w-10 rounded-xl p-0 text-neutral-600 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800" />}>
@@ -69,7 +92,7 @@ export default function Navbar() {
 													))}
 												</div>
 											</div>
-											<NavbarAvatar></NavbarAvatar>
+											{authLinks}
 										</div>
 									</SheetContent>
 								</Sheet>
