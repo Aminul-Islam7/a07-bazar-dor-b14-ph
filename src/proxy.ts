@@ -3,11 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { match } from 'path-to-regexp';
-import { toast } from 'sonner';
 
 const authRoutes = ['/sign-in', '/sign-up'];
 
-const protectedRoutes = ['/categories/*path/products/*path2'];
+const protectedRoutes = ['/categories/*path/products/*path2', '/profile'];
 
 export async function proxy(request: NextRequest) {
 	const { pathname, search } = request.nextUrl;
@@ -44,5 +43,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-	matcher: ['/sign-in', '/sign-up', '/categories/:path*/products/:path*'],
+	matcher: ['/sign-in', '/sign-up', '/profile', '/categories/:path*/products/:path*'],
 };
