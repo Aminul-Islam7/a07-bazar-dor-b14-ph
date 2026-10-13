@@ -7,6 +7,7 @@ import { FaArrowLeft, FaGithub, FaGoogle } from 'react-icons/fa';
 import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { MdArrowForward, MdEmail, MdLock, MdPerson } from 'react-icons/md';
 import { Suspense, useState } from 'react';
+import { signIn, signUp } from '@/lib/auth-client';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
@@ -16,7 +17,6 @@ import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Spinner } from '@/components/ui/spinner';
 import confetti from 'canvas-confetti';
-import { signUp } from '@/lib/auth-client';
 import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -104,7 +104,7 @@ function SignUpForm() {
 					},
 					onError: ctx => {
 						setIsLoading(false);
-						toast.error(`${ctx.error.statusText} (${ctx.error.status})`);
+						toast.error('একটি এরোর হয়েছে। আবার চেষ্টা করুন।');
 					},
 				},
 			);
@@ -112,6 +112,18 @@ function SignUpForm() {
 			setIsLoading(false);
 			toast.error('সার্ভারে সমস্যা হচ্ছে, অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।');
 		}
+	};
+
+	const handleGoogleSignIn = async () => {
+		await signIn.social({
+			provider: 'google',
+		});
+	};
+
+	const handleGithubSignIn = async () => {
+		await signIn.social({
+			provider: 'github',
+		});
 	};
 
 	return (
@@ -203,11 +215,11 @@ function SignUpForm() {
 			</div>
 
 			<div className="grid grid-cols-2 gap-3 mb-4">
-				<Button variant="secondary" type="button" className="w-full gap-2 py-5 cursor-pointer">
+				<Button variant="secondary" type="button" onClick={handleGoogleSignIn} className="w-full gap-2 py-5 cursor-pointer">
 					<FaGoogle className="h-4 w-4" />
 					Google
 				</Button>
-				<Button variant="secondary" type="button" className="w-full gap-2 py-5 cursor-pointer">
+				<Button variant="secondary" type="button" onClick={handleGithubSignIn} className="w-full gap-2 py-5 cursor-pointer">
 					<FaGithub className="h-4 w-4" />
 					GitHub
 				</Button>

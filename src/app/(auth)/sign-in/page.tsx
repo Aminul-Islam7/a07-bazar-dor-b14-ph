@@ -72,6 +72,18 @@ function SignInForm() {
 		}
 	};
 
+	const handleGoogleSignIn = async () => {
+		await signIn.social({
+			provider: 'google',
+		});
+	};
+
+	const handleGithubSignIn = async () => {
+		await signIn.social({
+			provider: 'github',
+		});
+	};
+
 	return (
 		<div className="bg-card rounded-xl p-6 sm:p-8 w-md">
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
@@ -124,18 +136,18 @@ function SignInForm() {
 			</div>
 
 			<div className="grid grid-cols-2 gap-3 mb-4">
-				<Button variant="secondary" type="button" className="w-full gap-2 py-5 cursor-pointer">
+				<Button variant="secondary" type="button" onClick={handleGoogleSignIn} className="w-full gap-2 py-5 cursor-pointer">
 					<FaGoogle className="h-4 w-4" />
 					Google
 				</Button>
-				<Button variant="secondary" type="button" className="w-full gap-2 py-5 cursor-pointer">
+				<Button variant="secondary" type="button" onClick={handleGithubSignIn} className="w-full gap-2 py-5 cursor-pointer">
 					<FaGithub className="h-4 w-4" />
 					GitHub
 				</Button>
 			</div>
 			<p className="text-sm text-center">
 				<span className="mr-2">অ্যাকাউন্ট নেই?</span>
-				<Link className="font-semibold text-primary" href="/sign-up">
+				<Link className="font-semibold text-primary" href={`sign-up/?callbackUrl=${callbackUrl}`}>
 					সাইন আপ করুন
 				</Link>
 			</p>

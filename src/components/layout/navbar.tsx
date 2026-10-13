@@ -16,11 +16,13 @@ import { Skeleton } from '../ui/skeleton';
 import ThemeSwitcherButton from '../ui/theme-switcher-button';
 import { numberInBangla } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
+import { usePathname } from 'next/navigation';
 import { useSession } from '@/lib/auth-client';
 
 export default function Navbar() {
 	const context = useApp();
 	const { data: session, isPending: isSessionPending } = useSession();
+	const pathname = usePathname();
 
 	const dummyCategory = { length: 8 };
 
@@ -33,7 +35,7 @@ export default function Navbar() {
 	) : (
 		<div className="flex flex-col lg:flex-row gap-2 lg:gap-1">
 			<Link href="/sign-in">
-				<Button className="py-4 lg:py-2 w-full" variant="outline" size="sm">
+				<Button className="py-4 lg:py-2 w-full" variant="ghost" size="sm">
 					Sign In
 				</Button>
 			</Link>
@@ -104,7 +106,7 @@ export default function Navbar() {
 							{context.isLoading
 								? Array.from(dummyCategory).map((dummyCategory, index) => <Skeleton key={index} className="h-6 w-16 ml-2"></Skeleton>)
 								: context.categories.map((category: Category) => (
-										<Link key={category.slug} className="rounded-md bg-transparent px-3 py-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800/50 dark:hover:text-neutral-50" href={`/categories/${category.slug}`}>
+										<Link key={category.slug} className={`rounded-md px-3 py-2 text-xs font-semibold hover:bg-neutral-200 dark:hover:bg-neutral-800 ${pathname === `/categories/${category.slug}` ? 'bg-primary text-background hover:bg-primary' : ''}`} href={`/categories/${category.slug}`}>
 											<span className="mr-2">{category.icon}</span>
 											<span>{category.nameBn}</span>
 										</Link>
