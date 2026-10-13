@@ -6,7 +6,16 @@ import { Button } from './button';
 import { signOut } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 
-export default function NavbarAvatar({ user }) {
+interface SessionUser {
+	createdAt: Date;
+	email: string;
+	emailVerified: boolean;
+	id: string;
+	name: string;
+	updatedAt: Date;
+}
+
+export default function NavbarAvatar({ user }: { user: SessionUser }) {
 	const router = useRouter();
 
 	const handleSignOut = async () => {

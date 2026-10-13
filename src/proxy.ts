@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { match } from 'path-to-regexp';
+import { toast } from 'sonner';
 
 const authRoutes = ['/sign-in', '/sign-up'];
 
