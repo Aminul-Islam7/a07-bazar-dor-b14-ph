@@ -19,7 +19,7 @@ const formSchema = z.object({
 	password: z.string().min(1, 'পাসওয়ার্ড লিখুন'),
 });
 
-export default function SignIn() {
+export default function SignInPage() {
 	const [showPassword, setShowPassword] = useState(false);
 
 	const form = useForm<z.infer<typeof formSchema>>({

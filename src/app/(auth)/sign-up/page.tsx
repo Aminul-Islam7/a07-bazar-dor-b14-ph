@@ -31,7 +31,7 @@ const formSchema = z
 		}
 	});
 
-export default function SignUp() {
+export default function SignUpPage() {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
