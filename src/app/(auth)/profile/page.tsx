@@ -47,7 +47,7 @@ export default function ProfilePage() {
 	const [isSigningOut, setIsSigningOut] = useState(false);
 
 	const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-	const [imageUrlInput, setImageUrlInput] = useState(session?.user.image);
+	const [imageUrlInput, setImageUrlInput] = useState<string>(session?.user?.image ?? '');
 
 	const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 	const [showNewPassword, setShowNewPassword] = useState(false);
@@ -63,6 +63,9 @@ export default function ProfilePage() {
 	useEffect(() => {
 		if (session?.user?.name) {
 			profileForm.reset({ name: session.user.name });
+		}
+		if (session?.user?.image) {
+			setImageUrlInput(session.user.image);
 		}
 	}, [session, profileForm]);
 
@@ -196,7 +199,7 @@ export default function ProfilePage() {
 				<div className="flex items-center gap-4">
 					<button type="button" onClick={() => setIsImageModalOpen(true)} className="group relative h-20 w-20 shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-muted focus:outline-none" title="ছবি পরিবর্তন করতে ক্লিক করুন">
 						{session?.user?.image ? (
-							<Image src={session.user.image} alt={session.user.name || 'User'} fill sizes="80px" className="object-cover" />
+							<Image priority src={session.user.image} alt={session.user.name || 'User'} fill sizes="80px" className="object-cover" />
 						) : (
 							<div className="flex h-full w-full items-center justify-center bg-primary/10 text-primary">
 								<FaUser className="h-8 w-8" />
