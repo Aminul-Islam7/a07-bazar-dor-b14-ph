@@ -3,7 +3,6 @@
 import { NavigationMenu, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { directionColor, directionSymbol } from '@/lib/utils';
-import { signOut, useSession } from '@/lib/auth-client';
 
 import { Button } from '@/components/ui/button';
 import { Category } from '@/types/commodity';
@@ -17,6 +16,7 @@ import { Skeleton } from '../ui/skeleton';
 import ThemeSwitcherButton from '../ui/theme-switcher-button';
 import { numberInBangla } from '@/lib/utils';
 import { useApp } from '@/context/app-context';
+import { useSession } from '@/lib/auth-client';
 
 export default function Navbar() {
 	const context = useApp();
@@ -29,7 +29,7 @@ export default function Navbar() {
 			<Skeleton className="h-8 w-32 rounded-lg" />
 		</>
 	) : session?.user ? (
-		<NavbarAvatar></NavbarAvatar>
+		<NavbarAvatar user={session.user}></NavbarAvatar>
 	) : (
 		<div className="flex flex-col lg:flex-row gap-2 lg:gap-1">
 			<Link href="/sign-in">

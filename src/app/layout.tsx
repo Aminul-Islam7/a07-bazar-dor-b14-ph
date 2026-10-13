@@ -8,6 +8,7 @@ import { Hind_Siliguri } from 'next/font/google';
 import type { Metadata } from 'next';
 import Navbar from '@/components/layout/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
 const hindSiliguri = Hind_Siliguri({
@@ -48,13 +49,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	const { categories, products } = await getInitialStoreData();
 
 	return (
-		<html lang="bn" className={cn('h-full', 'antialiased', hindSiliguri.variable, 'font-sans')} suppressHydrationWarning>
+		<html lang="bn" className={cn('h-full', 'antialiased', hindSiliguri.variable, 'font-sans')} suppressHydrationWarning data-scroll-behavior="smooth">
 			<body className="min-h-full flex flex-col">
 				<AppProvider initialCategories={categories} initialProducts={products}>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 						<Navbar />
 						{children}
 						<Footer />
+						<Toaster richColors position="top-center" />
 					</ThemeProvider>
 				</AppProvider>
 			</body>
